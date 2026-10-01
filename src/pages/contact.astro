@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Contact | 95.7 The Boss FM" description="Contact 95.7 The Boss FM — requests, shout-outs, advertising, and artist submissions.">
+  <section class="page-hero">
+    <p class="kicker">Get At Us</p>
+    <h1>Contact <em>The Boss</em></h1>
+    <p>Song requests, shout-outs, advertising, events, or artist submissions — drop us a line.</p>
+  </section>
+
+  <section class="section contact-grid">
+    <form id="contact-form" class="contact-form" novalidate>
+      <div class="field-row">
+        <label>Name
+          <input type="text" name="name" required autocomplete="name" maxlength="100" />
+        </label>
+        <label>Email
+          <input type="email" name="email" required autocomplete="email" maxlength="254" />
+        </label>
+      </div>
+      <label>Topic
+        <select name="topic" required>
+          <option value="">Please choose</option>
+          <option>Song request</option>
+          <option>Shout-out</option>
+          <option>Advertising</option>
+          <option>Events &amp; appearances</option>
+          <option>Artist submission</option>
+          <option>Other</option>
+        </select>
+      </label>
+      <label>Message
+        <textarea name="goal" rows="6" required maxlength="2000" placeholder="What's good?"></textarea>
+      </label>
+      <div class="form-actions">
+        <button type="submit" class="btn">Send Message →</button>
+      </div>
+      <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+    </form>
+
+    <aside class="contact-side">
+      <h2>Other ways <em>to reach us</em></h2>
+      <div class="contact-item">
+        <strong>Request Line</strong>
+        <p>Call in during live shows to get your request on the air.</p>
+      </div>
+      <div class="contact-item">
+        <strong>Advertising</strong>
+        <p>Put your business in front of the city's hip-hop and R&amp;B audience. Select "Advertising" above and tell us about your goals.</p>
+      </div>
+      <div class="contact-item">
+        <strong>Artists</strong>
+        <p>Want airplay? Submit your music through <a href="https://timeshareradio.net" target="_blank" rel="noopener">Time Share Radio</a> — independent heat gets real rotation on 95.7 The Boss.</p>
+      </div>
+    </aside>
+  </section>
+</Layout>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (status) status.textContent = 'Sending...';
+    const data = new FormData(form);
+    try {
+      const res = await fetch('https://elevated-forms-production.icy-flower-c65e.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          siteId: 'boss957fm',
+          formId: 'contact',
+          name: data.get('name'),
+          email: data.get('email'),
+          goal: 'Topic: ' + data.get('topic') + '\n\n' + data.get('goal'),
+        }),
+      });
+      if (res.ok) {
+        if (status) status.textContent = "Thanks — we got your message and we'll hit you back soon.";
+        form.reset();
+      } else {
+        if (status) status.textContent = 'Something went wrong. Please try again.';
+      }
+    } catch {
+      if (status) status.textContent = 'Something went wrong. Please try again.';
+    }
+  });
+</script>
+
+<style>
+  .contact-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: start; }
+  .contact-form { background: var(--bg2); border: 1px solid var(--line); border-top: 4px solid var(--accent); padding: clamp(24px, 4vw, 44px); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .contact-form label { display: flex; flex-direction: column; gap: 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 22px; }
+  .contact-form input, .contact-form select, .contact-form textarea {
+    width: 100%; background: var(--bg3); border: 1px solid var(--line); color: var(--text);
+    padding: 15px 16px; font-size: 15px; font-family: inherit; border-radius: 4px; outline: none;
+  }
+  .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: var(--accent); }
+  .contact-form textarea { resize: vertical; }
+  .form-status { font-size: 14px; color: var(--accent2); font-weight: 600; min-height: 22px; margin: 16px 0 0; }
+  .contact-side h2 { font-size: clamp(26px, 4vw, 40px); }
+  .contact-side h2 em { color: var(--accent); font-style: normal; }
+  .contact-item { border-bottom: 1px solid var(--line); padding: 20px 0; }
+  .contact-item strong { display: block; font-size: 15px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; color: var(--accent2); }
+  .contact-item p { margin: 0; font-size: 14px; }
+  .contact-item a { color: var(--accent2); }
+  @media (max-width: 820px) { .contact-grid, .field-row { grid-template-columns: 1fr; } }
+</style>
