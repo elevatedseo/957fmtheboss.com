@@ -1,4 +1,6 @@
 ---
+import ElevatedSecurityBadge from '../components/ElevatedSecurityBadge.astro';
+
 import { STREAM_URL, STATION_NAME, TIME_SHARE_URL } from '../config';
 
 interface Props {
@@ -64,7 +66,8 @@ const isActive = (path: string) => (path === '/' ? currentPath === '/' : current
       </div>
     </div>
     <p class="copyright">© {new Date().getFullYear()} 95.7 The Boss FM. All rights reserved.</p>
-  </footer>
+  <ElevatedSecurityBadge />
+</footer>
 
   <!-- Sticky bottom audio player -->
   <div class="player-bar" id="player-bar" role="region" aria-label="Live radio player">
