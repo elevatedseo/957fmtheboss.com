@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const schedule = [
+  { day: 'Monday – Friday', slots: [
+    { time: '6:00 AM – 10:00 AM', name: 'The Morning Boss', desc: 'Wake up with the biggest hip-hop and R&B records, plus the hottest topics of the day.' },
+    { time: '10:00 AM – 12:00 PM', name: 'Midday Heat', desc: 'Non-stop throwbacks and new joints to get you through the workday.' },
+    { time: '12:00 PM – 1:00 PM', name: 'The Lunch Breaks', desc: 'with DJ Swayd — presented by William King. An hour of pure fire for your lunch hour.' },
+    { time: '1:00 PM – 3:00 PM', name: 'Afternoon Drive Prep', desc: 'The countdown to the drive home starts here.' },
+    { time: '3:00 PM – 7:00 PM', name: 'The Drive @ 5 Street Mix', desc: 'with DJ Ivan Alferez — presented by William King. The official soundtrack of rush hour.' },
+    { time: '7:00 PM – 8:00 PM', name: 'The 7 O\'Clock Drop', desc: 'New music premiere hour — hear it here first.' },
+    { time: '8:00 PM – 12:00 AM', name: 'The Night Shift', desc: 'Slow jams and late-night R&B. Set the mood.' },
+    { time: '12:00 AM – 6:00 AM', name: 'After Hours', desc: 'The Boss mix all night long.' },
+  ]},
+  { day: 'Saturday', slots: [
+    { time: '8:00 AM – 12:00 PM', name: 'Weekend Wake-Up', desc: 'Easy Saturday morning vibes.' },
+    { time: '12:00 PM – 4:00 PM', name: 'The Saturday Block Party', desc: 'Four hours of party records — turn it all the way up.' },
+    { time: '4:00 PM – 8:00 PM', name: 'Independent Spotlight', desc: 'Featuring tracks submitted through Time Share Radio. New artists, real airplay.' },
+    { time: '8:00 PM – 12:00 AM', name: 'Saturday Night Live Mix', desc: 'The club comes to your speakers.' },
+  ]},
+  { day: 'Sunday', slots: [
+    { time: '8:00 AM – 12:00 PM', name: 'Sunday Soul', desc: 'Gospel-tinged R&B and inspiration to start the day.' },
+    { time: '12:00 PM – 4:00 PM', name: 'The Sunday Wind-Down', desc: 'Smooth R&B for your Sunday afternoon.' },
+    { time: '4:00 PM – 8:00 PM', name: 'The Countdown', desc: 'The 20 biggest records of the week.' },
+    { time: '8:00 PM – 12:00 AM', name: 'Quiet Storm', desc: 'Late-night slow jams to close the weekend.' },
+  ]},
+];
+---
+<Layout title="Shows & Schedule | 95.7 The Boss FM" description="The full on-air schedule for 95.7 The Boss FM — shows, DJs, and mix hours.">
+  <section class="page-hero">
+    <p class="kicker">On Air</p>
+    <h1>Shows &amp; <em>Schedule</em></h1>
+    <p>Your favorite DJs and mix shows, all week long. All times local.</p>
+  </section>
+
+  {schedule.map(block => (
+    <section class="section">
+      <div class="section-head"><h2>{block.day}</h2></div>
+      <div class="schedule">
+        {block.slots.map(s => (
+          <div class="show-row">
+            <span class="show-time">{s.time}</span>
+            <div>
+              <h3>{s.name}</h3>
+              <p>{s.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <section class="section cta-band">
+    <h2>Want your music <em>on this schedule?</em></h2>
+    <p>Independent artists can submit tracks through Time Share Radio and get real airplay on 95.7 The Boss.</p>
+    <a class="btn" href="https://timeshareradio.net" target="_blank" rel="noopener">Submit Your Music ↗</a>
+  </section>
+</Layout>
+
+<style>
+  .schedule { border-top: 1px solid var(--line); }
+  .show-row { display: grid; grid-template-columns: 230px 1fr; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .show-row:hover { background: var(--bg2); }
+  .show-time { font-weight: 800; color: var(--accent2); font-size: 14px; letter-spacing: 0.06em; }
+  .show-row h3 { font-size: 22px; margin: 0 0 4px; }
+  .show-row p { margin: 0; font-size: 14px; }
+  .cta-band { text-align: center; background: var(--bg2); border: 1px solid var(--line); border-top: 4px solid var(--accent); padding: 56px 32px !important; }
+  .cta-band h2 { font-size: clamp(30px, 5vw, 54px); }
+  .cta-band h2 em { color: var(--accent); font-style: normal; }
+  @media (max-width: 820px) { .show-row { grid-template-columns: 1fr; gap: 6px; } }
+</style>
