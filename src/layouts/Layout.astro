@@ -26,8 +26,7 @@ const isActive = (path: string) => (path === '/' ? currentPath === '/' : current
 <body>
   <header class="site-header">
     <a class="brand" href="/" aria-label="95.7 The Boss home">
-      <span class="freq">95.7</span>
-      <span class="name">THE BOSS</span>
+      <img src="/images/logo.png" alt="95.7 The Boss" width="120" height="120" class="brand-logo" />
     </a>
     <nav class="main-nav" aria-label="Main navigation">
       <a href="/" class={isActive('/')}>Home</a>
