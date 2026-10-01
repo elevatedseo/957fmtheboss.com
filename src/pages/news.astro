@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const stories = [
+  {
+    tag: 'Music News',
+    date: 'September 29, 2026',
+    title: "Megan Thee Stallion Drops 'Tina Tuesday Freestyle,' Books Victoria's Secret Fashion Show",
+    body: [
+      "Megan Thee Stallion is closing September with a bang. The Houston rapper dropped the \"Tina Tuesday Freestyle\" on September 29, reviving her Tina Snow alter ego over Mike Jones' 2004 classic \"Still Tippin'.\"",
+      "The same day, Victoria's Secret announced Megan as one of four musical performers for the 2026 Victoria's Secret Fashion Show, streaming live from Los Angeles on October 18 alongside KATSEYE, Tate McRae, and Megan Moroney.",
+      "The freestyle arrives as fans await her forthcoming Act III project — and it's pure H-town energy.",
+    ],
+  },
+  {
+    tag: 'Awards',
+    date: 'September 27, 2026',
+    title: "Cardi B & Kehlani Make VMA History: 'Safe' Wins Best Hip-Hop",
+    body: [
+      "Cardi B and Kehlani took home Best Hip-Hop at the 2026 MTV Video Music Awards on September 27 for their collaboration \"Safe.\"",
+      "The win is historic: \"Safe\" is the first all-female collaboration ever to win the Best Hip-Hop category at the VMAs, beating out a stacked field including Drake, Travis Scott, Tyler, The Creator, Don Toliver, and Megan Thee Stallion.",
+      "The track appears on Cardi's chart-topping album \"Am I The Drama?\" — and marks her second collaboration with Kehlani after 2018's \"Ring.\"",
+    ],
+  },
+  {
+    tag: 'New Music',
+    date: 'September 2026',
+    title: "Wiz Khalifa Drops New Single 'Yiccen' Ahead of 'Cool Azz Summer' EP",
+    body: [
+      "Wiz Khalifa put out his new single \"Yiccen\" in early September, a Memphis-influenced track produced by longtime collaborators Sledgren and Bardex in Pittsburgh.",
+      "The single arrives with the announcement of his Cool Azz Summer EP — and Wiz has been on a tear in 2026, teaming with Curren$y, Machine Gun Kelly, and Graham Barham, whose country-rap crossover \"LEAVIN'\" features a Wiz verse.",
+      "Stream it now and keep it locked — you know we're spinning it.",
+    ],
+  },
+  {
+    tag: 'Station',
+    date: 'September 2026',
+    title: '95.7 The Boss x Time Share Radio: Independent Artists on the Air',
+    body: [
+      "95.7 The Boss is teaming up with Time Share Radio to put independent artists in rotation. The same stream you hear here powers discovery for up-and-coming hip-hop and R&B talent.",
+      "Artists can submit tracks, build a profile, and get real airplay — no payola, just heat.",
+      "Visit timeshareradio.net to get your music heard.",
+    ],
+  },
+];
+---
+<Layout title="News | 95.7 The Boss FM" description="The latest hip-hop and R&B news from 95.7 The Boss FM.">
+  <section class="page-hero">
+    <p class="kicker">Stay Locked In</p>
+    <h1>Boss <em>News</em></h1>
+    <p>The biggest stories in hip-hop and R&amp;B — updated all week.</p>
+  </section>
+
+  <section class="section">
+    <div class="news-list">
+      {stories.map(s => (
+        <article class="story">
+          <div class="card-top">
+            <span class="card-tag">{s.tag}</span>
+            <span class="card-date">{s.date}</span>
+          </div>
+          <h2>{s.title}</h2>
+          {s.body.map(p => <p>{p}</p>)}
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .news-list { display: flex; flex-direction: column; gap: 40px; }
+  .story { background: var(--bg2); border: 1px solid var(--line); border-top: 4px solid var(--accent); padding: clamp(24px, 4vw, 44px); }
+  .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .card-tag { background: var(--accent); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 10px; border-radius: 3px; }
+  .card-date { font-size: 12px; color: var(--muted); }
+  .story h2 { font-size: clamp(24px, 4vw, 38px); text-transform: none; letter-spacing: 0; line-height: 1.2; }
+  .story p { max-width: 760px; }
+</style>
